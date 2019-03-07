@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jQuery AJAX POST Form</title>
+    <meta charset="utf-8">
+</head>
+<body>
+
+<form id="my-form">
+    <input type="text" id="title" name="title" placeholder="Title" />
+    <input type="text" id="desc" name="desc" placeholder="Description" />
+    <input type="text" id="image" name="image" placeholder="Image" />
+    <button type="submit">Submit</button>
+</form>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    (function($){
+        function processForm( e ){
+            $.ajax({
+                url: '/cakes',
+                dataType: 'text',
+                type: 'post',
+                contentType: 'application/json',
+                data: JSON.stringify($(this)),
+                success: function( data, textStatus, jQxhr ){
+                    $('#response message').html( data );
+                    $('#my-form').trigger("reset");
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+
+            e.preventDefault();
+        }
+
+        $('#my-form').submit( processForm );
+    })(jQuery);
+</script>
+<div id="response">
+    <message></message>
+</div>
+</body>
+</html>
