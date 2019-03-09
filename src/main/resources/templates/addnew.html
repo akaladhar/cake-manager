@@ -10,7 +10,7 @@
     <message></message>
 </div>
 
-<form id="my-form">
+<form id="newcake">
     <input type="text" id="title" name="title" placeholder="Title" />
     <input type="text" id="desc" name="desc" placeholder="Description" />
     <input type="text" id="image" name="image" placeholder="Image" />
@@ -25,11 +25,12 @@
                 url: '/cakes',
                 dataType: 'text',
                 type: 'post',
+                dataType : 'json',
                 contentType: 'application/json',
-                data: JSON.stringify($(this)),
+                data: JSON.stringify(ConvertFormToJSON($("#newcake"))),
                 success: function( data, textStatus, jQxhr ){
                     $('#response message').html( data );
-                    $('#my-form').trigger("reset");
+                    $('#newcake').trigger("reset");
                 },
                 error: function( jqXhr, textStatus, errorThrown ){
                     $('#response message').html( jqXhr.responseText );
@@ -39,8 +40,19 @@
             e.preventDefault();
         }
 
-        $('#my-form').submit( processForm );
+        $('#newcake').submit( processForm );
     })(jQuery);
+
+    function ConvertFormToJSON(form){
+        var array = jQuery(form).serializeArray();
+        var json = {};
+
+        jQuery.each(array, function() {
+            json[this.name] = this.value || '';
+        });
+
+        return json;
+    }
 </script>
 
 </body>

@@ -18,7 +18,6 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import javax.print.attribute.standard.Media;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -34,9 +33,9 @@ public class CakeLoaderApplicationRunner implements ApplicationRunner {
     @Autowired
     private CakeRepo cakeRepo;
 
-
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        LOGGER.info("Getting data from remote host");
         RestTemplate restTemplate = new RestTemplate();
         List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
 
@@ -51,10 +50,10 @@ public class CakeLoaderApplicationRunner implements ApplicationRunner {
                 new ParameterizedTypeReference<List<Cake>>(){});
         List<Cake> cakes = response.getBody();
 
-        System.out.println("Saving entities "+cakes.size());
+        LOGGER.info("Saving entities "+cakes.size());
 
         cakes.stream().forEach(c -> cakeRepo.saveAndFlush(c));
 
-        System.out.println("Entities saved");
+        LOGGER.info("Entities saved");
     }
 }
