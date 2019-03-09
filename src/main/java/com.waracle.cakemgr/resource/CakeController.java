@@ -23,7 +23,7 @@ public class CakeController {
 
     @RequestMapping(value = "/addnew", method = RequestMethod.GET)
     public String addNewCakeForm() {
-        return "test";
+        return "addnew";
     }
 
 }

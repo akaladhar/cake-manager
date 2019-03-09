@@ -9,7 +9,6 @@ import java.io.Serializable;
 @Table(name = "Cake")
 public class Cake implements Serializable {
 
-    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")

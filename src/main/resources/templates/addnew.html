@@ -1,15 +1,26 @@
+<!DOCTYPE html>
 <html>
 <head>
     <title>Add New Cake</title>
+    <meta charset="utf-8">
 </head>
 <body>
-<h2> Add new cake </h2>
-<div>
-    <h2>Add New Cake</h2>
+
+<div id="response">
+    <message></message>
+</div>
+
+<form id="my-form">
+    <input type="text" id="title" name="title" placeholder="Title" />
+    <input type="text" id="desc" name="desc" placeholder="Description" />
+    <input type="text" id="image" name="image" placeholder="Image" />
+    <button type="submit">Submit</button>
+</form>
+
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script>
     (function($){
-        function createCake( e ){
+        function processForm( e ){
             $.ajax({
                 url: '/cakes',
                 dataType: 'text',
@@ -18,33 +29,19 @@
                 data: JSON.stringify($(this)),
                 success: function( data, textStatus, jQxhr ){
                     $('#response message').html( data );
+                    $('#my-form').trigger("reset");
                 },
                 error: function( jqXhr, textStatus, errorThrown ){
-                    console.log( errorThrown );
+                    $('#response message').html( jqXhr.responseText );
                 }
             });
 
             e.preventDefault();
         }
 
-        $('#newcake').submit(createCake);
+        $('#my-form').submit( processForm );
     })(jQuery);
 </script>
-
-    <form id="newcake">
-        <label for="title" >Title:</label> <input type="text" id="title" name="title"
-                                                  maxlength="100" size="50"></input> </br>
-        <label for="desc">Description:</label> <input type="text" id="desc"
-                                                      name="desc" maxlength="100" size="50"></input> </br> <label
-            for="image">Image:</label> <input type="text" name="image" id="image"
-                                              maxlength="300" size="50"></input> <button type="submit">Submit</button>
-    </form>
-
-    <div id="response">
-        <message></message>
-    </div>
-
-</div>
 
 </body>
 </html>

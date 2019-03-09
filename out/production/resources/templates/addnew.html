@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>jQuery AJAX POST Form</title>
+    <title>Add New Cake</title>
     <meta charset="utf-8">
 </head>
 <body>
+
+<div id="response">
+    <message></message>
+</div>
 
 <form id="my-form">
     <input type="text" id="title" name="title" placeholder="Title" />
@@ -28,7 +32,7 @@
                     $('#my-form').trigger("reset");
                 },
                 error: function( jqXhr, textStatus, errorThrown ){
-                    console.log( errorThrown );
+                    $('#response message').html( jqXhr.responseText );
                 }
             });
 
@@ -38,8 +42,6 @@
         $('#my-form').submit( processForm );
     })(jQuery);
 </script>
-<div id="response">
-    <message></message>
-</div>
+
 </body>
 </html>
