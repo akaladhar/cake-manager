@@ -51,7 +51,6 @@ public class CakeRestControllerTest {
     @Test(expected=IllegalArgumentException.class)
     public void testGivenInvalidNewCake_shouldReturnBadRequest() {
         CakeDto cakeDto = CakeDto.builder().description("Yummy").image("instagram.com").build();
-        doNothing().when(cakeManagerService).saveCake(any(CakeDto.class));
         cakeRestController.addNewCake(cakeDto);
 
 
