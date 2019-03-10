@@ -1,8 +1,8 @@
 package com.waracle.cakemgr.init;
 
+import com.waracle.cakemgr.exception.BusinessException;
 import com.waracle.cakemgr.entity.Cake;
 import com.waracle.cakemgr.repo.CakeRepo;
-import org.hibernate.service.spi.InjectService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,25 +35,33 @@ public class CakeLoaderApplicationRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        LOGGER.info("Getting data from remote host");
-        RestTemplate restTemplate = new RestTemplate();
-        List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
 
-        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-        converter.setSupportedMediaTypes(Arrays.asList(MediaType.TEXT_PLAIN));
-        messageConverters.add(converter);
-        restTemplate.setMessageConverters(messageConverters);
-        ResponseEntity<List<Cake>> response = restTemplate.exchange(
-                dataUrl,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<List<Cake>>(){});
-        List<Cake> cakes = response.getBody();
+        try {
+            LOGGER.info("Getting data from remote host");
+            RestTemplate restTemplate = new RestTemplate();
+            List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
 
-        LOGGER.info("Saving entities "+cakes.size());
+            MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+            converter.setSupportedMediaTypes(Arrays.asList(MediaType.TEXT_PLAIN));
+            messageConverters.add(converter);
+            restTemplate.setMessageConverters(messageConverters);
+            ResponseEntity<List<Cake>> response = restTemplate.exchange(
+                    dataUrl,
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<List<Cake>>() {
+                    });
+            List<Cake> cakes = response.getBody();
 
-        cakes.stream().forEach(c -> cakeRepo.saveAndFlush(c));
+            LOGGER.info("Saving entities " + cakes.size());
 
-        LOGGER.info("Entities saved");
+            cakes.stream().forEach(c -> cakeRepo.saveAndFlush(c));
+
+            LOGGER.info("Entities saved");
+        }
+        catch(Exception e) {
+            LOGGER.error("Error while loading initial data "+e.getMessage());
+            throw new BusinessException("Failed to load initial data "+e.toString());
+        }
     }
 }

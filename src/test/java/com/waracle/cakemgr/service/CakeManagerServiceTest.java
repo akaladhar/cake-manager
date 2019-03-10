@@ -31,7 +31,6 @@ public class CakeManagerServiceTest {
     public void testSaveCake() {
 
         //It's a silly test
-        //given
         final CakeDto cakeDto = new CakeDto();
         cakeDto.setImage("test");
         cakeDto.setTitle("Title");
@@ -47,11 +46,9 @@ public class CakeManagerServiceTest {
                         argument.getTitle().equals(cakeDto.getTitle());
             }
         }))).thenReturn(cake);
-        //when
 
         cakeManagerService.saveCake(cakeDto);
 
-        //then
         verify(cakeRepo, times(1)).saveAndFlush(argThat(new ArgumentMatcher<Cake>() {
             @Override
             public boolean matches(Cake argument) {
@@ -64,7 +61,7 @@ public class CakeManagerServiceTest {
 
     @Test
     public void testFindAllCakes() {
-        //given
+
         final List<Cake> cakes = new ArrayList<>();
         final Cake cake = new Cake();
         cake.setImage("test");
@@ -73,16 +70,12 @@ public class CakeManagerServiceTest {
         cakes.add(cake);
         when(cakeRepo.findAll()).thenReturn(cakes);
 
-        //when
         List<CakeDto> result = cakeManagerService.getAllCakes();
 
-        //then
         assertEquals("List size must be 1", 1, result.size());
         assertTrue("Cake properties do not match", result.get(0).getDescription().equals(cake.getDesc()) &&
                 result.get(0).getTitle().equals(cake.getTitle()) &&
                 result.get(0).getImage().equals(cake.getImage()));
-
-
     }
 
 }

@@ -1,6 +1,5 @@
 package com.waracle.cakemgr.service;
 
-import com.waracle.cakemgr.entity.Cake;
 import com.waracle.cakemgr.representation.CakeDto;
 
 import java.util.List;

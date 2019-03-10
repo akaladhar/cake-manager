@@ -27,7 +27,7 @@ public class CakeRestController {
 
     @RequestMapping(method = RequestMethod.GET, produces = {APPLICATION_JSON_VALUE})
     @ResponseBody
-    public List<CakeDto> getCakes() {
+    public List<CakeDto> getAllCakes() {
 
         LOGGER.info("Request received to get list of all cakes");
         return cakeManagerService.getAllCakes();
@@ -39,10 +39,9 @@ public class CakeRestController {
         LOGGER.info("Request received to add new cake ");
         assertCake(cakeDto);
         cakeManagerService.saveCake(cakeDto);
-        LOGGER.info("Cake saved successfully ");
-        return new ResponseEntity<>(
-                "Cake created successfully",
-                HttpStatus.CREATED);
+        final String result = "Cake created successfully";
+        LOGGER.info(result);
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
     private void assertCake(CakeDto cakeDto) {
