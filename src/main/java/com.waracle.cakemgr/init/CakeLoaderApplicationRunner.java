@@ -22,6 +22,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This class is to load initial data
+ */
+
 @Component
 public class CakeLoaderApplicationRunner implements ApplicationRunner {
 

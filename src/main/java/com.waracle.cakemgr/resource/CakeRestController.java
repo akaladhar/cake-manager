@@ -15,6 +15,10 @@ import java.util.List;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.util.Assert.notNull;
 
+/*
+This controller serves REST end points
+ */
+
 @Api(value = "cakes", produces = "application/json", consumes = "application/json")
 @RestController
 @RequestMapping(value = "/cakes")

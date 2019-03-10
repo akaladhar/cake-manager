@@ -1,7 +1,5 @@
 package com.waracle.cakemgr.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -13,7 +11,7 @@ public class Cake implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
     private Integer id;
-    @Column(name = "TITLE", length = 250)
+    @Column(name = "TITLE", length = 250, nullable = false)
     private String title;
     @Column(name = "DESCRIPTION", length = 250)
     private String desc;

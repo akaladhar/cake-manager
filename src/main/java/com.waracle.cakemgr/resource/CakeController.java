@@ -8,6 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/*
+This controller serves HTML content
+ */
 @Controller
 @RequestMapping("/")
 public class CakeController {
