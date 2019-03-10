@@ -12,9 +12,9 @@ This application has 5 end points.
   Input json to create cake is  
   ```json
   {
-  "title": "Cake Title"
-  "desc" :  "Cake Description"
-  "image":  "URL to image"
+    "title": "Cake Title",
+    "desc":  "Cake Description",
+    "image": "URL to image"
   }
   ```
 - Get on '/cakes' returns list of cakes in the system in JSON format. (Served by CakeRestController.class)
