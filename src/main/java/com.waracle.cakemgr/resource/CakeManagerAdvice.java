@@ -9,8 +9,18 @@ import org.springframework.web.context.request.WebRequest;
 @RestControllerAdvice
 public class CakeManagerAdvice {
     @ExceptionHandler(IllegalArgumentException.class)
-    public final ResponseEntity<String> handleAllExceptions(IllegalArgumentException ex, WebRequest request) {
+    public final ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException ex, WebRequest request) {
 
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public final ResponseEntity<String> handleExceptions(Exception ex, WebRequest request) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public final ResponseEntity<String> handleAllExceptions(RuntimeException ex, WebRequest request) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

@@ -52,8 +52,6 @@ public class CakeRestControllerTest {
     public void testGivenInvalidNewCake_shouldReturnBadRequest() {
         CakeDto cakeDto = CakeDto.builder().description("Yummy").image("instagram.com").build();
         cakeRestController.addNewCake(cakeDto);
-
-
     }
 
 }

@@ -30,13 +30,11 @@ public class CakeRestControllerApplicationTest {
 
     HttpHeaders headers = new HttpHeaders();
 
-
     @Test
     public void testGetAllCakesRestEndpoint() throws Exception {
 
         List<CakeDto> cakeDtoList = getNumberOfCakesListed();
         assertTrue("Response is not correct",  cakeDtoList.size() >= 20);
-
     }
 
     @Test
