@@ -42,7 +42,7 @@ public class CakeRestControllerApplicationTest {
 
         List<CakeDto> preSaveList = getNumberOfCakesListed();
 
-        CakeDto cakeDto = CakeDto.builder().title("My new Cake").description("Yummy").image("instagram.com").build();
+        CakeDto cakeDto = CakeDto.builder().title("My new Cake").description("Yummy").image("http://instagram.com").build();
         ResponseEntity<String> response = restTemplate.postForEntity(createURLWithPort("/cakes"),
                 cakeDto, String.class);
 

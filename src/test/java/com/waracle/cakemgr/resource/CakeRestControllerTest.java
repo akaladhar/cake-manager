@@ -10,6 +10,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.net.MalformedURLException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -40,8 +41,8 @@ public class CakeRestControllerTest {
     }
 
     @Test
-    public void testAddNewCake() {
-        CakeDto cakeDto = CakeDto.builder().title("My new Cake").description("Yummy").image("instagram.com").build();
+    public void testAddNewCake() throws Exception {
+        CakeDto cakeDto = CakeDto.builder().title("My new Cake").description("Yummy").image("http://instagram.com").build();
         doNothing().when(cakeManagerService).saveCake(any(CakeDto.class));
         ResponseEntity<String> response = cakeRestController.addNewCake(cakeDto);
 
@@ -49,8 +50,14 @@ public class CakeRestControllerTest {
     }
 
     @Test(expected=IllegalArgumentException.class)
-    public void testGivenInvalidNewCake_shouldReturnBadRequest() {
+    public void testGivenInvalidNewCake_shouldReturnBadRequest() throws Exception {
         CakeDto cakeDto = CakeDto.builder().description("Yummy").image("instagram.com").build();
+        cakeRestController.addNewCake(cakeDto);
+    }
+
+    @Test(expected= MalformedURLException.class)
+    public void testGivenInvalidImageURL_throwMalformedURLException() throws Exception {
+        CakeDto cakeDto = CakeDto.builder().title("test").description("Yummy").image("instagram.com").build();
         cakeRestController.addNewCake(cakeDto);
     }
 

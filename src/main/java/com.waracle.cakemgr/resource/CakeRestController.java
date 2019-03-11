@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -39,7 +41,7 @@ public class CakeRestController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> addNewCake(@RequestBody CakeDto cakeDto) {
+    public ResponseEntity<String> addNewCake(@RequestBody CakeDto cakeDto) throws MalformedURLException {
         LOGGER.info("Request received to add new cake ");
         assertCake(cakeDto);
         cakeManagerService.saveCake(cakeDto);
@@ -48,9 +50,12 @@ public class CakeRestController {
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
-    private void assertCake(CakeDto cakeDto) {
+    private void assertCake(CakeDto cakeDto) throws MalformedURLException  {
         LOGGER.info("Validating new cake info ");
         notNull(cakeDto, "Cake can not be empty");
         notNull(cakeDto.getTitle(), "Title can not be empty");
+        if (cakeDto.getImage() != null) {
+            URL url = new URL(cakeDto.getImage());
+        }
     }
 }

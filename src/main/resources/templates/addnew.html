@@ -30,7 +30,7 @@
                 data: JSON.stringify(ConvertFormToJSON($("#newcake"))),
                 success: function( data, textStatus, jQxhr ){
                     $('#response message').html( data );
-                    $('#newcake').trigger("reset");
+                    $('#newcake')[0].("reset");
                 },
                 error: function( jqXhr, textStatus, errorThrown ){
                     $('#response message').html( jqXhr.responseText );
