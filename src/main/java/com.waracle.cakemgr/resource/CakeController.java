@@ -1,6 +1,5 @@
 package com.waracle.cakemgr.resource;
 
-
 import com.waracle.cakemgr.service.CakeManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,5 +27,4 @@ public class CakeController {
     public String addNewCakeForm() {
         return "addnew";
     }
-
 }

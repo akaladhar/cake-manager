@@ -2,25 +2,24 @@ package com.waracle.cakemgr.resource;
 
 import com.waracle.cakemgr.representation.CakeDto;
 import com.waracle.cakemgr.service.CakeManagerService;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 
 import java.net.MalformedURLException;
 import java.util.Arrays;
 import java.util.List;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.util.AssertionErrors.assertTrue;
 
-@RunWith(MockitoJUnitRunner.class)
+
 public class CakeRestControllerTest {
 
     @Mock
@@ -49,16 +48,22 @@ public class CakeRestControllerTest {
         assertEquals(response.getBody(), "Cake created successfully");
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testGivenInvalidNewCake_shouldReturnBadRequest() throws Exception {
         CakeDto cakeDto = CakeDto.builder().description("Yummy").image("instagram.com").build();
         cakeRestController.addNewCake(cakeDto);
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            cakeRestController.addNewCake(cakeDto);
+        });
     }
 
-    @Test(expected= MalformedURLException.class)
+
     public void testGivenInvalidImageURL_throwMalformedURLException() throws Exception {
         CakeDto cakeDto = CakeDto.builder().title("test").description("Yummy").image("instagram.com").build();
-        cakeRestController.addNewCake(cakeDto);
+
+        Exception exception = assertThrows(MalformedURLException.class, () -> {
+            cakeRestController.addNewCake(cakeDto);
+        });
     }
 
 }

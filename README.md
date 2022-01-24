@@ -23,8 +23,8 @@ This application has 5 end points.
 ## How to build and run without Docker
 
 Download the code using https://github.com/akaladhar/cake-manager.git.
-- To build the jar file run ```sh gradle build ```
-- To run it locally run ```sh gradle bootRun```, this will host application on localhost:8080.
+- To build the jar file run ```gradle build ```
+- To run it locally run ```gradle bootRun```, this will host application on localhost:8080.
 
 ## How to build and run Docker image
 
@@ -37,8 +37,8 @@ Download the code using https://github.com/akaladhar/cake-manager.git.
 
 Download the code using https://github.com/akaladhar/cake-manager.git.
 
- - ```sh gradle build docker``` builds docker image.
- - To run Docker image, run ```sh docker run -p 8080:8080 -t wrcl-cakemgr/cake-manager```
+ - ```gradle build docker``` builds docker image.
+ - To run Docker image, run ```docker run -p 8080:8080 -t wrcl-cakemgr/cake-manager```
 
 
 

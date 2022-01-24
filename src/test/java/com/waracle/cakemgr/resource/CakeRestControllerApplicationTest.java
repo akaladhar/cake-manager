@@ -1,11 +1,13 @@
 package com.waracle.cakemgr.resource;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.util.AssertionErrors.assertTrue;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.waracle.cakemgr.Application;
 import com.waracle.cakemgr.representation.CakeDto;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -14,13 +16,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * This is integration test class for REST controller end points
  */
-@RunWith(SpringRunner.class)
+
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CakeRestControllerApplicationTest {
     @LocalServerPort
@@ -49,7 +49,7 @@ public class CakeRestControllerApplicationTest {
         String result = response.getBody();
 
         assertEquals("Response is not correct", "Cake created successfully", result);
-        assertEquals("HTTP status code ", HttpStatus.CREATED, response.getStatusCode());
+        assertEquals( HttpStatus.CREATED, response.getStatusCode());
 
         List<CakeDto> postSaveList = getNumberOfCakesListed();
         assertTrue("Response is not correct",  postSaveList.size() == preSaveList.size() + 1);
@@ -68,7 +68,7 @@ public class CakeRestControllerApplicationTest {
         String responseBody = response.getBody();
 
         List<CakeDto> cakesList = new ObjectMapper().readValue(responseBody, new TypeReference<List<CakeDto>>() {});
-        assertEquals("HTTP status code ", HttpStatus.OK, response.getStatusCode());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
         return cakesList;
     }
 

@@ -2,8 +2,7 @@ package com.waracle.cakemgr.resource;
 
 import com.waracle.cakemgr.representation.CakeDto;
 import com.waracle.cakemgr.service.CakeManagerService;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -13,13 +12,13 @@ import org.springframework.ui.Model;
 import java.util.Arrays;
 import java.util.List;
 
-import static junit.framework.TestCase.assertTrue;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.util.AssertionErrors.assertTrue;
 
 /*
 This is integration test for CakeController class
  */
-@RunWith(MockitoJUnitRunner.class)
+
 public class CakeControllerTest {
     @Mock
     private CakeManagerService cakeManagerService;
